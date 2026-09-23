@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Rock, Paper, Scissors</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Your JavaScript file -->
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body class="min-h-screen bg-[#1a2853] px-6 py-8 text-white">
+    <!-- Main page container -->
+    <main class="mx-auto w-full max-w-[1100px]">
+      <!-- Scoreboard -->
+      <header
+        class="mx-auto flex w-full max-w-[700px] items-center justify-between rounded-2xl border-2 border-slate-500 px-6 py-4"
+      >
+        <!-- Game logo -->
+        <h1
+          class="text-2xl font-black uppercase leading-[0.85] tracking-[-1px] sm:text-4xl"
+        >
+          Rock<br />
+          Paper<br />
+          Scissors
+        </h1>
+
+        <!-- Score card -->
+        <div
+          class="flex h-28 w-36 flex-col items-center justify-center rounded-lg bg-white text-[#3b4c88] shadow-md"
+        >
+          <span class="text-sm font-bold tracking-[3px]"> SCORE </span>
+
+          <span
+            id="score"
+            class="text-6xl font-bold leading-none text-[#56556a]"
+          >
+            12
+          </span>
+        </div>
+      </header>
+
+      <!-- Initial choice screen -->
+      <section
+        id="choice-area"
+        class="relative mx-auto mt-20 h-[420px] w-full max-w-[500px]"
+      >
+        <!-- Triangle background -->
+        <div
+          class="absolute left-1/2 top-20 h-0 w-0 -translate-x-1/2 border-l-[130px] border-r-[130px] border-t-[230px] border-l-transparent border-r-transparent border-t-[#111c3c]"
+        ></div>
+
+        <!-- Rock button -->
+        <button
+          data-choice="rock"
+          aria-label="Choose rock"
+          class="absolute left-2 top-0 h-48 w-48 rounded-full bg-[#526ff4] p-6 shadow-[inset_0_-8px_0_#304fc4] transition hover:-translate-y-1"
+        >
+          <span
+            class="grid h-full w-full place-items-center rounded-full bg-gray-100"
+          >
+            <img src="./images/icon-rock.svg" alt="Rock" class="h-16 w-16" />
+          </span>
+        </button>
+
+        <!-- Scissors button -->
+        <button
+          data-choice="scissors"
+          aria-label="Choose scissors"
+          class="absolute right-2 top-0 h-48 w-48 rounded-full bg-[#eca10a] p-6 shadow-[inset_0_-8px_0_#bd7600] transition hover:-translate-y-1"
+        >
+          <span
+            class="grid h-full w-full place-items-center rounded-full bg-gray-100"
+          >
+            <img
+              src="./images/icon-scissors.svg"
+              alt="Scissors"
+              class="h-16 w-16"
+            />
+          </span>
+        </button>
+
+        <!-- Paper button -->
+        <button
+          data-choice="paper"
+          aria-label="Choose paper"
+          class="absolute bottom-0 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-[#df3151] p-6 shadow-[inset_0_-8px_0_#b51f3c] transition hover:-translate-y-1"
+        >
+          <span
+            class="grid h-full w-full place-items-center rounded-full bg-gray-100"
+          >
+            <img src="./images/icon-paper.svg" alt="Paper" class="h-16 w-16" />
+          </span>
+        </button>
+      </section>
+
+      <!-- Result screen -->
+      <section
+        id="result-screen"
+        class="mx-auto hidden w-full max-w-[1000px] grid-cols-1 items-center gap-10 pt-20 text-center sm:grid-cols-3 sm:gap-12"
+      >
+        <!-- Player result -->
+        <div class="flex flex-col items-center">
+          <h2 class="mb-16 text-sm font-bold tracking-[3px]">YOU PICKED</h2>
+
+          <div id="player-result"></div>
+        </div>
+
+        <!-- Result message and Play Again button -->
+        <div class="flex flex-col items-center">
+          <h2
+            id="result-message"
+            class="mb-6 whitespace-nowrap text-4xl font-black"
+          >
+            YOU LOSE
+          </h2>
+
+          <button
+            id="play-again"
+            class="w-56 whitespace-nowrap rounded-lg bg-white px-8 py-4 font-bold tracking-[3px] text-[#df3151] hover:bg-gray-200"
+          >
+            PLAY AGAIN
+          </button>
+        </div>
+
+        <!-- House result -->
+        <div class="flex flex-col items-center">
+          <h2 class="mb-16 text-sm font-bold tracking-[3px]">
+            THE HOUSE PICKED
+          </h2>
+
+          <div id="house-result"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rules button -->
+    <button
+      id="open-rules"
+      class="fixed bottom-8 right-8 rounded-lg border border-white px-9 py-3 text-sm font-bold tracking-[3px] transition hover:bg-white hover:text-[#1a2853]"
+    >
+      RULES
+    </button>
+
+    <!-- Rules modal -->
+    <div
+      id="rules-modal"
+      class="fixed inset-0 z-10 hidden items-center justify-center bg-black/60 p-6"
+    >
+      <!-- Modal box -->
+      <div class="w-full max-w-md rounded-lg bg-white p-8 text-[#3b4262]">
+        <!-- Modal header -->
+        <div class="mb-8 flex items-center justify-between">
+          <h2 class="text-2xl font-bold uppercase">Rules</h2>
+
+          <button
+            id="close-rules"
+            class="text-3xl text-gray-400 hover:text-gray-700"
+            aria-label="Close rules"
+          >
+            &times;
+          </button>
+        </div>
+
+        <!-- Rules image -->
+        <img
+          src="./images/image-rules.svg"
+          alt="Rock paper scissors rules"
+          class="mx-auto"
+        />
+      </div>
+    </div>
+  </body>
+</html>
